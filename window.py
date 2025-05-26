@@ -9,13 +9,15 @@ class Window:
         
         self.root_widget = Tk()
         
-        self.root_widget.title = f"{width}/{height}"
+        self.root_widget.title("Maze Solver")
         
-        self.canvas_widget = Canvas()
+        self.canvas_widget = Canvas(self.root_widget, bg="white", height=height,width=width)
 
-        self.canvas_widget.pack()
+        self.canvas_widget.pack(fill=BOTH,expand=1)
         
         self.running = False
+        
+        self.root_widget.protocol("WM_DELETE_WINDOW",self.close)
         
     def redraw (self):
         
@@ -31,11 +33,13 @@ class Window:
         while self.running:
             self.redraw()
             
+        print("window closed...")
+            
     def close (self):
         
         self.running = False
         
-        self.root_widget.protocol("WM_DELETE_WINDOW",self.close)
+
         
         
         
