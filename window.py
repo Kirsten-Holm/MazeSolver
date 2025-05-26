@@ -65,7 +65,7 @@ class Line:
         self.point2 = Point2
 
 
-    def draw(self, canvas, fill_color):
+    def draw_line(self, canvas, fill_color="black"):
         
         canvas.create_line(self.point1.x,self.point1.y,self.point2.x,self.point2.y, fill=fill_color, width=2)
         
