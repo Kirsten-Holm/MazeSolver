@@ -15,7 +15,7 @@ class Maze:
             num_cols,
             cell_size_x,
             cell_size_y,
-            win,
+            win=None,
         ):
         #parameter values
         self.x1 = x1
@@ -48,11 +48,19 @@ class Maze:
         y_cord = self.y1
         if i != 0:
             y_cord = self.cell_size_y * i + self.y1
-        self.__cells[i][j].draw(x_cord,y_cord,x_cord+self.cell_size_x,y_cord+self.cell_size_y)
-        self.animate()
+            
+        if self.win == None:
+            self.__cells[i][j].__x1 = x_cord
+            self.__cells[i][j].__x1 = y_cord
+            self.__cells[i][j].__x1 = x_cord + self.cell_size_x
+            self.__cells[i][j].__x1 = x_cord + self.cell_size_y
+        else:
+            self.__cells[i][j].draw(x_cord,y_cord,x_cord+self.cell_size_x,y_cord+self.cell_size_y)
+            self.animate()
         
     def animate(self):
-        
+        if self.win == None:
+            return
         self.win.redraw()
         time.sleep(0.05)
         
