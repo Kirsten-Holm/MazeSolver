@@ -22,7 +22,7 @@ class Cell:
         self.__win = window
         
         
-    def draw(self, x1,y1,x2,y2):
+    def draw(self, x1, y1, x2, y2):
         
         self.__x1 = x1
         self.__x2 = x2
@@ -38,16 +38,28 @@ class Cell:
             point1 = Point(x2,y1)
             point2 = Point(x2,y2)
             line = Line(point1,point2)
-            line.draw_line(self.__win.canvas_widget,"red")
+            line.draw_line(self.__win.canvas_widget,"black")
         if self.has_top_wall:
             point1 = Point(x1,y1)
             point2 = Point(x2,y1)
             line = Line(point1,point2)
-            line.draw_line(self.__win.canvas_widget,"blue")
+            line.draw_line(self.__win.canvas_widget,"black")
         if self.has_bottom_wall:
             point1 = Point(x1,y2)
             point2 = Point(x2,y2)
             line = Line(point1,point2)
-            line.draw_line(self.__win.canvas_widget,"green")
-    
+            line.draw_line(self.__win.canvas_widget,"black")
+            
+    def draw_move(self, to_cell, undo=False):
+        
+        colour = "red"
+        if undo:
+            colour = "gray"
+            
+        cell_size = 50
+        cell_size /= 2
+        line_to_draw = Line(Point(self.__x1+cell_size,self.__y1+cell_size),
+                            Point(to_cell.__x1+cell_size,to_cell.__y1+cell_size))
+        
+        self.__win.draw_line(line_to_draw,colour)
                 

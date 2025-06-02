@@ -41,7 +41,7 @@ class Window:
         
     def draw_line(self, Line, fill_color="BLACK"):
         
-        Line.draw(self.canvas_widget,"BLACK")
+        Line.draw_line(self.canvas_widget,fill_color)
         
         
         
