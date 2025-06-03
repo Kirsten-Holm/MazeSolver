@@ -2,6 +2,7 @@ from tkinter import Tk, BOTH, Canvas
 import time
 from window import *
 from cell import *
+import random
 
 
 
@@ -16,6 +17,7 @@ class Maze:
             cell_size_x,
             cell_size_y,
             win=None,
+            seed=None
         ):
         #parameter values
         self.x1 = x1
@@ -25,6 +27,8 @@ class Maze:
         self.cell_size_x = cell_size_x
         self.cell_size_y = cell_size_y
         self.win = win
+        if seed != None:
+            self.seed = random.seed(seed)
         #non parameter values
         self.__cells = []
         self.__create_cells()
@@ -64,6 +68,22 @@ class Maze:
         self.win.redraw()
         time.sleep(0.05)
         
+        
+        
+    def __break_entrance_and_exit(self):
+        
+        self.__cells[0][0].has_top_wall = False
+        self.__draw_cell(0,0)
+        self.__cells[self.num_cols-1][self.num_rows-1].has_bottom_wall = False
+        self.__draw_cell(self.num_cols-1,self.num_rows-1)
+        
             
-            
-            
+    def __break_walls_r(self, i, j):
+        
+        self.__cells[i][j].visited = True
+        
+        while True:
+            nodes_to_visit = []
+            self.__cells[i]
+        
+        

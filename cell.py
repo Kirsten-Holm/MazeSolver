@@ -21,6 +21,8 @@ class Cell:
         
         self.__win = window
         
+        self.visited = False
+        
         
     def draw(self, x1, y1, x2, y2):
         
@@ -30,26 +32,37 @@ class Cell:
         self.__y2 = y2
         if self.__win == None:
             return
+
+        point1 = Point(x1,y1)
+        point2 = Point(x1,y2)
+        line = Line(point1,point2)
         if self.has_left_wall:
-            point1 = Point(x1,y1)
-            point2 = Point(x1,y2)
-            line = Line(point1,point2)
             line.draw_line(self.__win.canvas_widget,"black")
+        else:
+            line.draw_line(self.__win.canvas_widget,"white")
+        point1 = Point(x2,y1)
+        point2 = Point(x2,y2)
+        line = Line(point1,point2)
         if self.has_right_wall:
-            point1 = Point(x2,y1)
-            point2 = Point(x2,y2)
-            line = Line(point1,point2)
             line.draw_line(self.__win.canvas_widget,"black")
+        else:
+            line.draw_line(self.__win.canvas_widget,"white")
+
+        point1 = Point(x1,y1)
+        point2 = Point(x2,y1)
+        line = Line(point1,point2)
         if self.has_top_wall:
-            point1 = Point(x1,y1)
-            point2 = Point(x2,y1)
-            line = Line(point1,point2)
             line.draw_line(self.__win.canvas_widget,"black")
+        else:
+            line.draw_line(self.__win.canvas_widget,"white")
+
+        point1 = Point(x1,y2)
+        point2 = Point(x2,y2)
+        line = Line(point1,point2)
         if self.has_bottom_wall:
-            point1 = Point(x1,y2)
-            point2 = Point(x2,y2)
-            line = Line(point1,point2)
             line.draw_line(self.__win.canvas_widget,"black")
+        else:
+            line.draw_line(self.__win.canvas_widget,"white")
             
     def draw_move(self, to_cell, undo=False):
         
@@ -57,11 +70,16 @@ class Cell:
         if undo:
             colour = "gray"
             
-        cell_size = 50
-        cell_size /= 2
-        line_to_draw = Line(Point(self.__x1+cell_size,self.__y1+cell_size),
-                            Point(to_cell.__x1+cell_size,to_cell.__y1+cell_size))
+        half_length = abs(self.__x2 - self.__x1) // 2
+        x_center = half_length + self.__x1
+        y_center = half_length + self.__y1
+
+        half_length2 = abs(to_cell.__x2 - to_cell.__x1) // 2
+        x_center2 = half_length2 + to_cell.__x1
+        y_center2 = half_length2 + to_cell.__y1
+        
         if self.__win == None:
             return
-        self.__win.draw_line(line_to_draw,colour)
+        line = Line(Point(x_center, y_center), Point(x_center2, y_center2))
+        self.__win.draw_line(line,colour)
                 
